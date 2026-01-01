@@ -32,3 +32,9 @@ I opted to evaluate the predictions using root mean squared error (RMSE) because
 # Insights
 Using the collaborative filtering model it is clear that it is possible to predict the number of a given item a user will purchase. Because collaborative filtering can also be used to find similar items, this means that it's possible to extend the system and recommend specific items to the user based on what is currently in their cart. This allows for more effective ad targeting, more effective decisions surrounding what should go on sale, and better inventory management. Effective ad targeting and deciding what goes on sale increase revenue, while improved inventory management can lead to less unnecessary spending.
 
+# Results
+
+    No documented business insights — should interpret results (e.g., which items co-occur, which promos drive sales).
+    No explicit joins across all four datasets, so the model ignores promo/store context.
+    Feature engineering is minimal; collaborative filtering alone limits business interpretability.
+    README lacks explicit model performance metrics (no RMSE score shown).
