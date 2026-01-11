@@ -211,3 +211,5 @@ __marimo__/
 data/
 Data Engineer Test.pdf
 .DS_Store
+
+.continue/

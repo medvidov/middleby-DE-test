@@ -1,0 +1,31 @@
+services:
+  spark-master:
+    build: .  # Tells it to look for the 'Dockerfile' in the current folder
+    user: root
+    environment:
+      - SPARK_MODE=master
+      - SPARK_DRIVER_MEMORY=2G
+    command: >
+      /bin/bash -c "/opt/spark/bin/spark-class org.apache.spark.deploy.master.Master & 
+      /opt/spark/sbin/start-connect-server.sh --conf spark.connect.grpc.binding.port=15002 &&
+      tail -f /dev/null"
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+      - "15002:15002"
+    volumes:
+        - ./data:/data
+
+  spark-worker:
+    build: . # Uses the same 3.12 image for the workers
+    user: root
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=4G
+    command: /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    volumes:
+      - ./data:/data
